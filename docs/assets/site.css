@@ -419,3 +419,8 @@ a.card:hover { color: var(--ink); transform: translateY(-4px); border-color: var
 @media print {
   .site-header, .mobile-bar, .cta-band { display: none !important; }
 }
+
+/* Kyle's logo as the brand */
+.brand-logo { height: 64px; width: auto; border-radius: 8px; display: block; }
+.brand-footer .brand-logo { height: 96px; }
+@media (max-width: 760px) { .brand-logo { height: 48px; } }

@@ -23,7 +23,7 @@ export const SITE = {
   leadEndpoint: '',
 
   updated: '2026-10-17',
-  assetVersion: '20261017-preview',
+  assetVersion: '20261017-logo',
 
   hero: {
     duration: 12,

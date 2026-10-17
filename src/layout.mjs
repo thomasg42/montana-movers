@@ -32,15 +32,12 @@ export function makeCtx(SITE, slug, opts = {}) {
 // Simple Montana outline. Header icon only. Kyle's card is never redrawn.
 export const stateMark = `<svg class="brand-state" viewBox="0 0 48 32" aria-hidden="true" focusable="false"><path fill="currentColor" d="M2.4 8.8 39.2 3.6l5.2 6.2v15.4l-6.4 3.6-9.2-.6-6.8-3.4L10.6 26 2.6 20.4Z"/></svg>`;
 
-export const brandWordmark = (ctx, { compact = false } = {}) => `
-  <span class="brand-mark">${stateMark}</span>
-  <span class="brand-words">
-    <span class="b1">Montana Movers</span>
-    <span class="b2">${ctx.SITE.city}, ${ctx.SITE.region}</span>
-  </span>`.trim();
+// Kyle's own logo: the "Montana Movers" mark cropped from his business card (phone and tagline removed).
+export const brandWordmark = (ctx) =>
+  `<img class="brand-logo" src="${ctx.asset('brand/montana-movers-logo.jpg')}" alt="Montana Movers" width="400" height="288" decoding="async">`;
 
-export const logoCard = (ctx, { width = 433, height = 315, cls = 'logo-card' } = {}) =>
-  `<img class="${cls}" src="${ctx.asset('brand/montana-movers-logo-card.png')}" alt="Montana Movers business card. ${ctx.SITE.phone.display}. ${ctx.SITE.tagline}" width="${width}" height="${height}" decoding="async">`;
+export const logoCard = (ctx, { width = 400, height = 288, cls = 'logo-card' } = {}) =>
+  `<img class="${cls}" src="${ctx.asset('brand/montana-movers-logo.jpg')}" alt="Montana Movers logo" width="${width}" height="${height}" loading="lazy" decoding="async">`;
 
 const sprite = `<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
 <symbol id="i-truck" viewBox="0 0 24 24"><path d="M2 16.5V7.5h11v9M13 10.5h4.5l3 3v3H13"/><circle cx="6" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></symbol>
@@ -186,8 +183,7 @@ function footer(ctx) {
         <p class="footer-tagline">${SITE.tagline}</p>
         <figure class="footer-card">
           ${logoCard(ctx)}
-          <figcaption>Kyle's business card. The real logo, shown large enough to read.</figcaption>
-        </figure>
+                  </figure>
       </div>
       <div>
         <h2 class="footer-h">Moves</h2>
@@ -235,7 +231,7 @@ export function businessSchema(ctx) {
     name: SITE.name,
     url: ctx.abs(''),
     telephone: SITE.phone.schema,
-    logo: ctx.abs('assets/brand/montana-movers-logo-card.png'),
+    logo: ctx.abs('assets/brand/montana-movers-logo.jpg'),
     image: ctx.abs('assets/hero/mm-hero-end-16x9.jpg'),
     slogan: SITE.tagline,
     address: {

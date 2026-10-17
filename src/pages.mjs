@@ -238,14 +238,14 @@ ${pageHero(ctx, {
 <section class="section section-paper">
   <div class="wrap split">
     <div class="reveal">
-      <p class="kicker">The card</p>
-      <h2>The real logo</h2>
-      <p class="section-lead">This is Kyle's business card. We do not redraw it. The header uses a wordmark because the card is unreadable at that size.</p>
+      <p class="kicker">The logo</p>
+      <h2>Montana Movers</h2>
+      <p class="section-lead">Three movers and the state we work in.</p>
       <p>${SITE.name}. ${SITE.phone.display}. ${SITE.tagline}</p>
     </div>
     <figure class="about-card reveal">
-      ${logoCard(ctx, { width: 866, height: 630, cls: 'logo-card logo-card-lg' })}
-      <figcaption>Kyle's business card. Shown large enough to read.</figcaption>
+      ${logoCard(ctx, { cls: 'logo-card logo-card-lg' })}
+      
     </figure>
   </div>
 </section>
