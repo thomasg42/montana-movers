@@ -93,7 +93,7 @@ test('home page carries MovingCompany schema with the confirmed NAP only', () =>
   const ld = [...d.querySelectorAll('script[type="application/ld+json"]')].map((s) => JSON.parse(s.textContent));
   const biz = ld.find((o) => o['@type'] === 'MovingCompany');
   assert.ok(biz);
-  assert.equal(biz.telephone, '+1-406-589-3496');
+  assert.equal(biz.telephone, '+1-406-589-3946');
   assert.equal(biz.address.addressLocality, 'Bozeman');
   assert.equal(biz.address.addressRegion, 'MT');
   assert.ok(!biz.address.streetAddress, 'no street until Kyle confirms one');
@@ -147,9 +147,9 @@ test('every page gives a path to Kyle: free-estimate, call, and text', () => {
   for (const p of pages) {
     const hrefs = [...p.document.querySelectorAll('a[href]')].map((a) => a.getAttribute('href'));
     assert.ok(hrefs.some((h) => /free-estimate\/(\?|$)/.test(h)), `${p.rel}: no free-estimate link`);
-    assert.ok(hrefs.includes('tel:+14065893496'), `${p.rel}: no call link`);
-    assert.ok(hrefs.some((h) => h.startsWith('sms:+14065893496')), `${p.rel}: no text link`);
-    for (const h of hrefs.filter((x) => x.startsWith('tel:'))) assert.equal(h, 'tel:+14065893496');
+    assert.ok(hrefs.includes('tel:+14065893946'), `${p.rel}: no call link`);
+    assert.ok(hrefs.some((h) => h.startsWith('sms:+14065893946')), `${p.rel}: no text link`);
+    for (const h of hrefs.filter((x) => x.startsWith('tel:'))) assert.equal(h, 'tel:+14065893946');
   }
 });
 
@@ -172,7 +172,7 @@ test('claims gate: no fabricated demo copy, no UNCONFIRMED words, only Kyle\'s p
     const phones = t.match(/\b\d{3}[-.)\s]+\d{3}[-.\s]?\d{4}\b/g) || [];
     for (const ph of phones) {
       const digits = ph.replace(/\D/g, '');
-      assert.ok(digits === '4065893496' || digits === '14065893496', `${p.rel}: unexpected phone ${ph}`);
+      assert.ok(digits === '4065893946' || digits === '14065893946', `${p.rel}: unexpected phone ${ph}`);
     }
   }
 });
@@ -231,7 +231,7 @@ test('free-estimate form contract', () => {
   for (const n of ['name', 'phone', 'email', 'details']) assert.ok(form.querySelector(`[name="${n}"]`).getAttribute('maxlength'), `${n} maxlength`);
   const pat = form.querySelector('[name="phone"]').getAttribute('pattern');
   assert.doesNotThrow(() => new RegExp(`^(?:${pat})$`, 'v'));
-  assert.ok(new RegExp(`^(?:${pat})$`, 'v').test('406-589-3496'));
+  assert.ok(new RegExp(`^(?:${pat})$`, 'v').test('406-589-3946'));
   assert.ok(!new RegExp(`^(?:${pat})$`, 'v').test('abc'));
   assert.ok(form.querySelector('.hp input[name="company"]'), 'honeypot');
   assert.equal(form.querySelector('button').getAttribute('type'), 'submit');
@@ -242,7 +242,7 @@ test('free-estimate form contract', () => {
 });
 
 test('validation refuses empty name/phone and bad email', () => {
-  const ok = { name: 'Sam', phone: '406-589-3496', email: '' };
+  const ok = { name: 'Sam', phone: '406-589-3946', email: '' };
   assert.deepEqual(Core.validate(ok), {});
   assert.ok(Core.validate({ ...ok, phone: 'abc' }).phone);
   assert.ok(Core.validate({ ...ok, email: 'not-an-email' }).email);
@@ -250,14 +250,14 @@ test('validation refuses empty name/phone and bad email', () => {
 });
 
 test('the message Kyle receives has the move facts', () => {
-  const m = Core.message({ name: ' Sam ', phone: '406-589-3496', type: 'office', movingFrom: 'Bozeman', movingTo: 'Butte', details: 'Desks' });
-  for (const s of ['Sam', '406-589-3496', 'Office moves', 'Bozeman', 'Butte', 'Desks']) assert.ok(m.includes(s), s);
-  assert.ok(Core.smsHref('+14065893496', m).startsWith('sms:+14065893496?&body='));
+  const m = Core.message({ name: ' Sam ', phone: '406-589-3946', type: 'office', movingFrom: 'Bozeman', movingTo: 'Butte', details: 'Desks' });
+  for (const s of ['Sam', '406-589-3946', 'Office moves', 'Bozeman', 'Butte', 'Desks']) assert.ok(m.includes(s), s);
+  assert.ok(Core.smsHref('+14065893946', m).startsWith('sms:+14065893946?&body='));
 });
 
-function bootForm({ search = '', endpoint = '', fetchImpl } = {}) {
+function bootForm({ search = '', endpoint, fetchImpl } = {}) {
   let html = readFileSync(join(DOCS, 'free-estimate/index.html'), 'utf8');
-  if (endpoint) html = html.replace('data-endpoint=""', `data-endpoint="${endpoint}"`);
+  if (endpoint !== undefined) html = html.replace(/data-endpoint="[^"]*"/, `data-endpoint="${endpoint}"`);
   const { window, document } = parse(html);
   const form = document.getElementById('estimate-form');
   form.elements = { namedItem: (n) => form.querySelector(`[name="${n}"]`) };
@@ -288,7 +288,7 @@ function bootForm({ search = '', endpoint = '', fetchImpl } = {}) {
   const submit = () => form.dispatchEvent(new window.Event('submit', { cancelable: true }));
   return { document, form, fill, submit, calls };
 }
-const GOOD = { name: 'QA Probe', phone: '406-589-3496', details: 'Office desks' };
+const GOOD = { name: 'QA Probe', phone: '406-589-3946', details: 'Office desks' };
 const tick = () => new Promise((r) => setTimeout(r, 0));
 
 test('form: prefills move type from a service page link', () => {
@@ -305,13 +305,13 @@ test('form: empty submit shows errors and sends nothing', () => {
 });
 
 test('form: no endpoint hands the visitor a prefilled text to Kyle', () => {
-  const b = bootForm();
+  const b = bootForm({ endpoint: '' });
   b.fill(GOOD);
   b.submit();
   assert.equal(b.calls.length, 0);
   assert.equal(b.document.getElementById('form-handoff').hidden, false);
   const sms = b.document.getElementById('handoff-sms').getAttribute('href');
-  assert.ok(sms.startsWith('sms:+14065893496?&body=') && decodeURIComponent(sms).includes('QA Probe'));
+  assert.ok(sms.startsWith('sms:+14065893946?&body=') && decodeURIComponent(sms).includes('QA Probe'));
   assert.equal(b.form.querySelector('[name="name"]').value, 'QA Probe');
 });
 
@@ -334,6 +334,36 @@ test('form: a 500 from the backend shows the error and keeps every value', async
   assert.equal(b.document.getElementById('form-error').hidden, false);
   assert.equal(b.form.querySelector('[name="details"]').value, 'Office desks');
   assert.equal(b.form.querySelector('button[type="submit"]').disabled, false);
+  const sms = b.document.getElementById('error-sms').getAttribute('href');
+  assert.ok(sms.startsWith('sms:+14065893946?&body=') && decodeURIComponent(sms).includes('QA Probe'));
+});
+
+test('form: built leadEndpoint path posts there on success and 500', async () => {
+  assert.equal(SITE.leadEndpoint, 'https://tggai.app.n8n.cloud/webhook/montana-movers-lead');
+  const ok = bootForm({ endpoint: SITE.leadEndpoint });
+  ok.fill(GOOD);
+  ok.submit();
+  await tick();
+  assert.equal(ok.calls.length, 1);
+  assert.equal(ok.calls[0].url, SITE.leadEndpoint);
+  assert.equal(ok.document.getElementById('form-thanks').hidden, false);
+
+  const bad = bootForm({
+    endpoint: SITE.leadEndpoint,
+    fetchImpl: () => Promise.resolve({ ok: false, status: 500 }),
+  });
+  bad.fill(GOOD);
+  bad.submit();
+  await tick(); await tick();
+  assert.equal(bad.calls[0].url, SITE.leadEndpoint);
+  assert.equal(bad.document.getElementById('form-error').hidden, false);
+  assert.equal(bad.form.querySelector('[name="name"]').value, 'QA Probe');
+
+  const twice = bootForm({ endpoint: SITE.leadEndpoint });
+  twice.fill(GOOD);
+  twice.submit(); twice.submit();
+  await tick();
+  assert.equal(twice.calls.length, 1);
 });
 
 test('form: honeypot filled = quiet fake success, nothing posted', async () => {

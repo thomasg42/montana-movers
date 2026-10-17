@@ -54,7 +54,9 @@ No pages for packing, storage, labor-only, or individual towns. Those are UNCONF
 
 ## Lead path
 
-`leadEndpoint` is empty on purpose. A valid submit shows "Last step: send it to Kyle" with a prefilled text to 406-589-3496 and a call button. The intended n8n webhook is `https://tggai.app.n8n.cloud/webhook/montana-movers-speed-to-lead`. Do not wire it until Thomas approves. It places a real automated call.
+The form POSTs to `https://tggai.app.n8n.cloud/webhook/montana-movers-lead`. n8n workflow `Du2pKqqFsHdrX98F` (Montana Movers — Website Lead Email) is a draft: unpublished, Gmail node disabled, no Kyle address, no credential attached. Only `r.ok` shows thanks. A failure keeps the values and still offers a text to 406-589-3946.
+
+Speed-to-lead (the automated call) is a later webhook. Do not wire it here.
 
 Every page has a free-estimate link plus `tel:` and `sms:` links, and a sticky Call / Text / Free estimate bar.
 

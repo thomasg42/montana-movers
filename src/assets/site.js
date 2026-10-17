@@ -302,6 +302,7 @@
         })
         .catch(function () {
           reset();
+          if (document.getElementById('handoff-sms')) document.getElementById('handoff-sms').setAttribute('href', smsLink);
           show(oops);
         });
     });

@@ -32,7 +32,7 @@ function heroMedia(ctx) {
 const home = {
   slug: '',
   title: 'Montana Movers | Moving Company in Bozeman, MT',
-  description: 'Montana Movers is a moving company in Bozeman, MT. Home, apartment, office, and long-distance moves. Get a free estimate or call 406-589-3496.',
+  description: 'Montana Movers is a moving company in Bozeman, MT. Home, apartment, office, and long-distance moves. Get a free estimate or call 406-589-3946.',
   bodyClass: 'page-home',
   schema: (ctx) => [
     businessSchema(ctx),
@@ -184,7 +184,7 @@ const how = {
   slug: 'how-it-works',
   crumb: 'How it works',
   title: 'How a Move Works | Montana Movers, Bozeman MT',
-  description: 'How a move with Montana Movers works in Bozeman, MT. Tell Kyle the plan, get a free estimate, then move. Call 406-589-3496 or send the form.',
+  description: 'How a move with Montana Movers works in Bozeman, MT. Tell Kyle the plan, get a free estimate, then move. Call 406-589-3946 or send the form.',
   bodyClass: 'page-inner',
   schema: (ctx) => [faqSchema(faqs(ctx)), breadcrumbSchema(ctx, 'How it works')],
   body: (ctx) => {
@@ -221,7 +221,7 @@ const about = {
   slug: 'about',
   crumb: 'About',
   title: 'About Montana Movers | Moving Company, Bozeman MT',
-  description: 'About Montana Movers, Kyle Robinson\'s moving company in Bozeman, MT. We move anywhere, anytime. Get a free estimate or call 406-589-3496.',
+  description: 'About Montana Movers, Kyle Robinson\'s moving company in Bozeman, MT. We move anywhere, anytime. Get a free estimate or call 406-589-3946.',
   bodyClass: 'page-inner',
   schema: (ctx) => [
     { '@context': 'https://schema.org', '@type': 'AboutPage', name: 'About Montana Movers', url: ctx.abs('about/'), about: { '@id': ctx.abs('#business') } },
@@ -257,7 +257,7 @@ const estimate = {
   slug: 'free-estimate',
   crumb: 'Free estimate',
   title: 'Free Moving Estimate | Montana Movers, Bozeman',
-  description: 'Get a free moving estimate from Montana Movers in Bozeman, MT. Tell Kyle the date and both addresses, or call 406-589-3496.',
+  description: 'Get a free moving estimate from Montana Movers in Bozeman, MT. Tell Kyle the date and both addresses, or call 406-589-3946.',
   bodyClass: 'page-inner page-estimate',
   schema: (ctx) => [
     businessSchema(ctx),
@@ -367,7 +367,7 @@ const notFound = {
   noindex: true,
   inSitemap: false,
   title: 'Page Not Found | Montana Movers',
-  description: 'That page is not here. Head back to Montana Movers in Bozeman, MT, or get a free estimate. Call 406-589-3496 and Kyle will pick it up from there.',
+  description: 'That page is not here. Head back to Montana Movers in Bozeman, MT, or get a free estimate. Call 406-589-3946 and Kyle will pick it up from there.',
   bodyClass: 'page-inner',
   body: (ctx) => `<section class="page-hero page-hero-short">
   <div class="wrap page-hero-inner">

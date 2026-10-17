@@ -21,7 +21,7 @@ Then `node build.mjs && node --test tests/site.test.mjs`. Bump `assetVersion` in
 - Scroll 0-0.88 maps to video 0-12 s. The last 12% holds the end frame so the brand reveal is easy to hit.
 - Beat 1 (0-28%): "Moving day looks like this."
 - Beat 2 (32-58%): "We'll take it from here."
-- Beat 3 (62% to end): h1, tagline, services, Get a free estimate, Call 406-589-3496.
+- Beat 3 (62% to end): h1, tagline, services, Get a free estimate, Call 406-589-3946.
 - Desktop: beats 1-2 lower left. Beat 3 centered in the sky band (top third).
 - Phone: beats 1-2 low over a bottom scrim. Beat 3 brand in the sky band, buttons above the sticky bar.
 - Reduced motion / Save-Data / failed load: end still + beat 3. The h1 stays in the DOM.

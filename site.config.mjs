@@ -12,18 +12,17 @@ export const SITE = {
   customDomain: '',
   launched: false,
 
-  phone: { display: '406-589-3496', e164: '+14065893496', schema: '+1-406-589-3496' },
+  phone: { display: '406-589-3946', e164: '+14065893946', schema: '+1-406-589-3946' },
   city: 'Bozeman',
   region: 'MT',
   country: 'US',
   areaPhrase: 'Bozeman and nearby towns',
 
-  // Empty on purpose. Wiring the n8n speed-to-lead webhook needs Thomas first.
-  // Intended later: https://tggai.app.n8n.cloud/webhook/montana-movers-speed-to-lead
-  leadEndpoint: '',
+  // Email-only lead webhook. Unpublished until Thomas approves. Not speed-to-lead.
+  leadEndpoint: 'https://tggai.app.n8n.cloud/webhook/montana-movers-lead',
 
   updated: '2026-10-17',
-  assetVersion: '20261017-hero1',
+  assetVersion: '20261017-phone',
 
   hero: {
     duration: 12,
@@ -44,7 +43,7 @@ export const SITE = {
       short: 'Home moves',
       nav: 'Home',
       title: 'Home Movers in Bozeman, MT | Montana Movers',
-      description: 'Home movers in Bozeman, MT. Montana Movers handles residential moves in Bozeman and nearby towns. Get a free estimate or call 406-589-3496.',
+      description: 'Home movers in Bozeman, MT. Montana Movers handles residential moves in Bozeman and nearby towns. Get a free estimate or call 406-589-3946.',
       h1: 'Home Movers in Bozeman, MT',
       lead: 'A house full of boxes is a home move. Tell us where you are going and when. We will send a free estimate.',
       kicker: 'Residential moving',
@@ -57,7 +56,7 @@ export const SITE = {
       short: 'Apartment moves',
       nav: 'Apartment',
       title: 'Apartment Movers in Bozeman, MT | Montana Movers',
-      description: 'Apartment movers in Bozeman, MT. Stairs, tight halls, a new lease date. Get a free estimate from Montana Movers or call 406-589-3496.',
+      description: 'Apartment movers in Bozeman, MT. Stairs, tight halls, a new lease date. Get a free estimate from Montana Movers or call 406-589-3946.',
       h1: 'Apartment Movers in Bozeman, MT',
       lead: 'Stairs, tight halls, and a date on the lease. Tell us the building and the day. We will send a free estimate.',
       kicker: 'Apartment moving',
@@ -70,7 +69,7 @@ export const SITE = {
       short: 'Office moves',
       nav: 'Office',
       title: 'Office Movers in Bozeman, MT | Montana Movers',
-      description: 'Office and commercial movers in Bozeman, MT. Desks, files, and a work week that cannot wait. Get a free estimate or call 406-589-3496.',
+      description: 'Office and commercial movers in Bozeman, MT. Desks, files, and a work week that cannot wait. Get a free estimate or call 406-589-3946.',
       h1: 'Office Movers in Bozeman, MT',
       lead: 'Desks, files, and a work week that has to keep moving. Tell us the offices and the day. We will send a free estimate.',
       kicker: 'Office and commercial',
@@ -83,7 +82,7 @@ export const SITE = {
       short: 'Long-distance moves',
       nav: 'Long distance',
       title: 'Long-Distance Moves from Bozeman | Montana Movers',
-      description: 'Long-distance moves from Bozeman to anywhere in Montana. Montana Movers. Get a free estimate or call 406-589-3496 to talk through the trip.',
+      description: 'Long-distance moves from Bozeman to anywhere in Montana. Montana Movers. Get a free estimate or call 406-589-3946 to talk through the trip.',
       h1: 'Long-Distance Moves from Bozeman',
       lead: 'A move from Bozeman to another town in Montana. Tell us both ends and the day. We will send a free estimate.',
       kicker: 'Across Montana',
