@@ -181,9 +181,6 @@ function footer(ctx) {
       <div class="footer-brand">
         <a class="brand brand-footer" href="${ctx.link('')}" aria-label="${SITE.name}, home">${brandWordmark(ctx)}</a>
         <p class="footer-tagline">${SITE.tagline}</p>
-        <figure class="footer-card">
-          ${logoCard(ctx)}
-                  </figure>
       </div>
       <div>
         <h2 class="footer-h">Moves</h2>

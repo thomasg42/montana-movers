@@ -235,20 +235,7 @@ ${pageHero(ctx, {
   h1: 'Kyle Robinson. Montana Movers.',
   lead: `A moving company in ${SITE.areaPhrase}. The name, the phone, and the line on the card.`,
 })}
-<section class="section section-paper">
-  <div class="wrap split">
-    <div class="reveal">
-      <p class="kicker">The logo</p>
-      <h2>Montana Movers</h2>
-      <p class="section-lead">Three movers and the state we work in.</p>
-      <p>${SITE.name}. ${SITE.phone.display}. ${SITE.tagline}</p>
-    </div>
-    <figure class="about-card reveal">
-      ${logoCard(ctx, { cls: 'logo-card logo-card-lg' })}
-      
-    </figure>
-  </div>
-</section>
+
 <section class="section section-white">
   <div class="wrap split">
     <div class="reveal">
