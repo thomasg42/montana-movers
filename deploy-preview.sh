@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Publishes the Montana Movers site to GitHub Pages:
-#   https://thomasg42.github.io/montana-movers/
+#   https://montanamoversmt.com/ (custom domain; repo thomasg42/montana-movers)
 # Run from Thomas's own Terminal only, and only when he says publish.
 #
 # The June 2026 demo is currently served from the repo root with a fake 555
@@ -11,7 +11,7 @@ set -euo pipefail
 SRC="$HOME/Documents/FGA-Brain/FGA-AIOS/clients/montana-movers/website"
 REPO="thomasg42/montana-movers"
 WORK="$HOME/Documents/montana-movers-site"
-URL="https://thomasg42.github.io/montana-movers/"
+URL="https://montanamoversmt.com/"
 
 cd "$SRC"
 echo "1/6 Building..."
@@ -61,7 +61,7 @@ fi
 
 code=000
 for _ in $(seq 1 30); do
-  code=$(curl -s -o /dev/null -w "%{http_code}" "$URL" || true)
+  code=$(curl -sL -o /dev/null -w "%{http_code}" "$URL" || true)
   [ "$code" = "200" ] && break
   sleep 10
 done

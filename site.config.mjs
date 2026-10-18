@@ -7,10 +7,10 @@ export const SITE = {
   owner: 'Kyle Robinson',
   tagline: 'We move anywhere, anytime.',
 
-  // Preview URL until Kyle picks a domain. launched: false keeps every page noindex.
-  url: 'https://thomasg42.github.io/montana-movers',
-  customDomain: '',
-  launched: false,
+  // Domain bought 2026-10-17 (registrant Kyle). launched: true after Kyle OK 2026-10-17. Thomas redeploys.
+  url: 'https://montanamoversmt.com',
+  customDomain: 'montanamoversmt.com',
+  launched: true,
 
   phone: { display: '406-589-3946', e164: '+14065893946', schema: '+1-406-589-3946' },
   city: 'Bozeman',
