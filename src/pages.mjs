@@ -71,8 +71,8 @@ const home = {
   <div class="wrap">
     <div class="section-head reveal">
       <p class="kicker">${SITE.tagline}</p>
-      <h2 id="do-title">A moving company in Bozeman and nearby towns</h2>
-      <p class="section-lead">${ctx.serviceLine}. Call or text ${SITE.phone.display}, or send a free estimate request.</p>
+      <h2 id="do-title">Moving in Bozeman and nearby towns? Let’s talk.</h2>
+      <p class="section-lead">Moving in Bozeman or nearby? Tell Kyle what you’re moving, where you’re headed, and what you need help figuring out.</p>
     </div>
     ${serviceCards(ctx)}
   </div>
@@ -81,9 +81,10 @@ const home = {
 <section class="section section-white" aria-labelledby="steps-title">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="kicker">Three steps</p>
-      <h2 id="steps-title">How a move starts</h2>
+      <p class="kicker">Start with a conversation</p>
+      <h2 id="steps-title">Sometimes you need an expert’s advice.</h2>
     </div>
+    <p class="section-lead advice-intro">You don’t have to figure out every detail before you call. Talk your move through with Kyle, or send what you know for a free estimate.</p>
     ${stepsList(ctx)}
     <p class="center reveal"><a class="text-link" href="${ctx.link('how-it-works')}">More on how it works${ctx.icon('arrow')}</a></p>
   </div>
@@ -92,9 +93,9 @@ const home = {
 <section class="section section-paper" aria-labelledby="road-title">
   <div class="wrap split">
     <div class="reveal">
-      <p class="kicker">On the road</p>
+      <p class="kicker">Where are you headed?</p>
       <h2 id="road-title">Anywhere, anytime</h2>
-      <p class="section-lead">The line on Kyle's card. A white truck on a Montana highway. Not a claim about Kyle's own truck.</p>
+      <p class="section-lead">A new place brings plenty of questions. Tell Kyle where you’re starting and where you want to go. Start there.</p>
       <div class="btn-row">
         <a class="btn btn-sky" href="${ctx.estimate()}"><span>Get a free estimate</span></a>
       </div>
@@ -109,8 +110,8 @@ const home = {
 <section class="section section-white" aria-labelledby="faq-title">
   <div class="wrap narrow">
     <div class="section-head reveal">
-      <p class="kicker">Good questions</p>
-      <h2 id="faq-title">Before you book</h2>
+      <p class="kicker">You might be wondering</p>
+      <h2 id="faq-title">A few answers before you call.</h2>
     </div>
     ${faqList(f.slice(0, 3), 1)}
     <p class="center reveal"><a class="text-link" href="${ctx.link('how-it-works')}#faq">More answers${ctx.icon('arrow')}</a></p>
@@ -146,7 +147,7 @@ ${pageHero(ctx, {
   <div class="wrap split">
     <div class="reveal">
       <p class="kicker">${ctx.SITE.areaPhrase}</p>
-      <h2>What this move covers</h2>
+      <h2>Let’s talk about your move.</h2>
       <p class="section-lead">${svc.lead}</p>
       <ul class="ticks">
         <li>${ctx.icon('check')}<span>${ctx.SITE.city}, ${ctx.SITE.region}</span></li>
@@ -165,7 +166,7 @@ ${pageHero(ctx, {
 </section>
 <section class="section section-white">
   <div class="wrap">
-    <div class="section-head reveal"><h2>Other moves</h2></div>
+    <div class="section-head reveal"><h2>What are you moving?</h2></div>
     ${serviceCards(ctx)}
   </div>
 </section>
@@ -193,13 +194,13 @@ const how = {
 ${pageHero(ctx, {
   kicker: 'Simple steps',
   h1: 'How a Move Works',
-  lead: 'Tell Kyle the plan. Get a free estimate. Then the move happens.',
+  lead: 'Got a date, an address, or just a few questions? Start by telling Kyle what you know.',
 })}
 <section class="section section-paper">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="kicker">From the first note to move day</p>
-      <h2>Three steps</h2>
+      <p class="kicker">One conversation at a time</p>
+      <h2>Here’s where to start.</h2>
     </div>
     ${stepsList(ctx, howSteps())}
   </div>
@@ -207,7 +208,7 @@ ${pageHero(ctx, {
 <section class="section section-white" id="faq">
   <div class="wrap narrow">
     <div class="section-head reveal">
-      <p class="kicker">From the facts we can print</p>
+      <p class="kicker">Your questions, answered</p>
       <h2>Questions</h2>
     </div>
     ${faqList(f, 1)}
@@ -233,7 +234,7 @@ const about = {
 ${pageHero(ctx, {
   kicker: SITE.tagline,
   h1: 'Kyle Robinson. Montana Movers.',
-  lead: `A moving company in ${SITE.areaPhrase}. The name, the phone, and the line on the card.`,
+  lead: `Moving in ${SITE.areaPhrase}? Talk to Kyle about your date, your destination, and the questions on your mind.`,
 })}
 
 <section class="section section-white">
@@ -276,7 +277,7 @@ const estimate = {
   <div class="wrap">
     <p class="kicker">Free estimate</p>
     <h1>Get a Free Estimate</h1>
-    <p class="lead">Name and phone are enough. Add the date and both ends of the move if you have them.</p>
+    <p class="lead">Tell Kyle what you know so far. Your name and phone are enough to start; add your date and addresses if you have them.</p>
   </div>
 </section>
 <section class="section section-paper section-tight">
@@ -346,12 +347,12 @@ const estimate = {
     <aside class="reserve-side">
       <figure class="estimate-photo"><img src="${ctx.asset('photos/montana-road.webp')}" alt="Illustrative truck on a Montana mountain road. Not Kyle’s truck." width="1200" height="800" loading="lazy"><figcaption>Illustrative scene.</figcaption></figure>
       <div class="side-card">
-        <h2 class="side-h">Rather talk now?</h2>
+        <h2 class="side-h">Got a question first?</h2>
         <a class="side-link" href="${ctx.tel}">${ctx.icon('phone')}<span><b>Call Kyle</b>${SITE.phone.display}</span></a>
         <a class="side-link" href="${ctx.sms}">${ctx.icon('chat')}<span><b>Text Kyle</b>${SITE.phone.display}</span></a>
       </div>
       <div class="side-card">
-        <h2 class="side-h">What we move</h2>
+        <h2 class="side-h">What are you moving?</h2>
         <ul class="link-list">
           ${ctx.services.map((s) => `<li><a href="${ctx.link(s.slug)}">${ctx.icon('truck')}<span>${s.name}</span></a></li>`).join('')}
         </ul>

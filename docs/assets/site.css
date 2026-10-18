@@ -443,3 +443,13 @@ a.card:hover { color: var(--ink); transform: translateY(-4px); border-color: var
 .estimate-photo figcaption { position: absolute; inset: auto 0 0; padding: 24px 16px 12px; color: white; font-size: .74rem; background: linear-gradient(transparent,#101b29dd); }
 @media (min-width: 861px) { .split { align-items: center; gap: 40px; } }
 @media (max-width: 620px) { .service-card-photo { height: 190px; } .road-photo { height: 300px; } }
+
+.advice-intro { max-width: 58ch; margin: -6px 0 24px; }
+
+/* Keep the homepage hero intact. Fill the other dark surfaces with moving-day items. */
+.page-hero { background: linear-gradient(90deg, rgba(16,23,31,.91), rgba(16,23,31,.48)), url('hero/mm-hero-start-16x9.jpg') center 58% / cover; }
+.cta-band { background: linear-gradient(90deg, rgba(16,23,31,.80), rgba(16,23,31,.60)), url('hero/mm-hero-start-16x9.jpg') center 50% / cover; }
+.footer-body { background: linear-gradient(90deg, rgba(16,23,31,.88), rgba(16,23,31,.60)), url('hero/mm-hero-start-16x9.jpg') center 68% / cover; }
+@media (max-width: 620px) {
+ .page-hero, .cta-band, .footer-body { background-position: 64% center; }
+}

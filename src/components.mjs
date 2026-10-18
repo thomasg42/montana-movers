@@ -16,9 +16,9 @@ export function serviceCards(ctx) {
 
 export function howSteps() {
   return [
-    ['Tell us the move', 'Where you are starting, where you are going, and the day.'],
-    ['Get a free estimate', 'Kyle gets the request and sends an estimate.'],
-    ['Move day', 'Montana Movers does the move.'],
+    ['Tell Kyle what’s on your mind', 'Where are you headed? What are you moving? Share the date and details you have so far.'],
+    ['Ask for your free estimate', 'Send your move details to Kyle so he can put an estimate together.'],
+    ['Talk through the next step', 'Discuss your move with Kyle before making your plan.'],
   ];
 }
 
@@ -43,7 +43,7 @@ export function faqs(ctx) {
     ['What does Montana Movers do?', `Montana Movers is a moving company in ${SITE.areaPhrase}. ${line}.`],
     ['Where do you work from?', `${SITE.city}, ${SITE.region}. ${SITE.areaPhrase}.`],
     ['Do you offer a free estimate?', `Yes. Send the move details or call ${SITE.phone.display}.`],
-    ['Who should I talk to?', `Kyle Robinson. Call or text ${SITE.phone.display}.`],
+    ['Can I talk to someone about my move?', `Yes. Call or text Kyle Robinson at ${SITE.phone.display}. Tell him what you have in mind.`],
     ['What is the tagline?', SITE.tagline],
   ];
 }

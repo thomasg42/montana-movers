@@ -156,8 +156,8 @@ export function pageHero(ctx, { kicker, h1, lead, cta = 'Get a free estimate', c
 </section>`;
 }
 
-export function ctaBand(ctx, { title = 'Ready to move?', text, params } = {}) {
-  const t = text || 'Tell Kyle where you are starting, where you are going, and when. He will send a free estimate.';
+export function ctaBand(ctx, { title = 'Let’s talk about your move.', text, params } = {}) {
+  const t = text || 'A few questions or a full move planned? Tell Kyle where you are with it. Call, text, or send your details for a free estimate.';
   return `<section class="cta-band" aria-labelledby="cta-title">
   <div class="wrap cta-inner reveal">
     <p class="kicker kicker-light">Talk to Kyle</p>
