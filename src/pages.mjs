@@ -6,7 +6,7 @@ import {
   faqSchema, faqList, logoCard,
 } from './layout.mjs';
 import { liveServices } from '../site.config.mjs';
-import { serviceCards, stepsList, photoSlot, faqs, howSteps } from './components.mjs';
+import { serviceCards, stepsList, faqs, howSteps } from './components.mjs';
 
 function heroMedia(ctx) {
   const startAlt = ctx.SITE.hero.posterAlt;
@@ -238,16 +238,11 @@ ${pageHero(ctx, {
 })}
 
 <section class="section section-white">
-  <div class="wrap split">
-    <div class="reveal">
-      <p class="kicker">A look at moving day</p>
-      <h2>From boxes to open roads.</h2>
-      <p class="section-lead">These scenes illustrate moving day. Photos of Kyle’s actual truck and crew have not been supplied yet.</p>
-    </div>
-    <div class="stack">
-      ${photoSlot(ctx, { kind: 'crew', note: 'Waiting on a photo Kyle took.' })}
-      ${photoSlot(ctx, { kind: 'truck', note: 'Waiting on a photo of the actual truck.' })}
-    </div>
+  <div class="wrap narrow">
+    <p class="kicker">Your move starts with a conversation</p>
+    <h2>Talk it through with Kyle.</h2>
+    <p class="section-lead">Your date. Your destination. The items you need to move. Tell Kyle what you have in mind and ask for a free estimate.</p>
+    <p class="fine">The team and equipment shown are illustrative. Photos of Kyle’s actual crew and equipment have not been supplied.</p>
   </div>
 </section>
 ${ctaBand(ctx, { title: 'Talk to Kyle.' })}`;
@@ -345,7 +340,7 @@ const estimate = {
       </div>
     </div>
     <aside class="reserve-side">
-      <figure class="estimate-photo"><img src="${ctx.asset('photos/montana-road.webp')}" alt="Illustrative truck on a Montana mountain road. Not Kyle’s truck." width="1200" height="800" loading="lazy"><figcaption>Illustrative scene.</figcaption></figure>
+      <figure class="estimate-photo"><img src="${ctx.asset('photos/unique/wrap.webp')}" alt="Illustrative protective stretch wrap, padded furniture and moving boxes." width="1200" height="800" loading="lazy"><figcaption>Illustrative scene.</figcaption></figure>
       <div class="side-card">
         <h2 class="side-h">Got a question first?</h2>
         <a class="side-link" href="${ctx.tel}">${ctx.icon('phone')}<span><b>Call Kyle</b>${SITE.phone.display}</span></a>

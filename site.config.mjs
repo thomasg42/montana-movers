@@ -22,7 +22,7 @@ export const SITE = {
   leadEndpoint: 'https://tggai.app.n8n.cloud/webhook/montana-movers-lead',
 
   updated: '2026-10-17',
-  assetVersion: '20261017-imagery-v2',
+  assetVersion: '20261018-unique-scenes-v3',
 
   hero: {
     duration: 12,

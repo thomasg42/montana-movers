@@ -137,7 +137,16 @@ export function crumbs(ctx, name) {
 }
 
 export function pageHero(ctx, { kicker, h1, lead, cta = 'Get a free estimate', ctaParams, photo }) {
-  photo ||= { src: ctx.slug === 'long-distance-moving' ? 'photos/montana-road.webp' : ctx.slug === 'about' ? 'photos/montana-arrival.webp' : 'photos/moving-day.webp', alt: ctx.slug === 'long-distance-moving' ? 'Illustrative moving truck on a mountain road; not Kyle’s truck.' : ctx.slug === 'about' ? 'Illustrative truck beneath Montana mountains; not Kyle’s truck.' : 'Illustrative boxes ready for moving day; not a customer home.', w: 1200, h: 800, caption: 'Illustrative scene.' };
+  const scenes = {
+    'home-moving': ['home', 'Illustrative team coordinating a protected sofa move. Not Kyle’s actual crew.'],
+    'apartment-moving': ['apartment', 'Illustrative apartment move with a hand truck, boxes and teammates.'],
+    'office-moving': ['office', 'Illustrative office moving carts, padded equipment and team planning.'],
+    'long-distance-moving': ['distance', 'Illustrative secured furniture load with blankets, straps and a dolly.'],
+    'how-it-works': ['planning', 'Illustrative moving teammates communicating beside a cart.'],
+    'about': ['team', 'Illustrative team coordinating a move. Not Kyle or his actual crew.'],
+  };
+  const scene = scenes[ctx.slug];
+  if (!photo && scene) photo = { src: `photos/unique/${scene[0]}.webp`, alt: scene[1], w: 1536, h: 1024, caption: 'Illustrative scene; not the actual crew or equipment.' };
   const pic = photo
     ? `<figure class="page-hero-photo-frame"><img src="${ctx.asset(photo.src)}" alt="${photo.alt}" width="${photo.w}" height="${photo.h}" fetchpriority="high"><figcaption>${photo.caption}</figcaption></figure>`
     : '';
@@ -159,6 +168,7 @@ export function pageHero(ctx, { kicker, h1, lead, cta = 'Get a free estimate', c
 export function ctaBand(ctx, { title = 'Let’s talk about your move.', text, params } = {}) {
   const t = text || 'A few questions or a full move planned? Tell Kyle where you are with it. Call, text, or send your details for a free estimate.';
   return `<section class="cta-band" aria-labelledby="cta-title">
+  ${ctx.slug === '' ? `<img class="cta-supplies" src="${ctx.asset('photos/unique/supplies.webp')}" alt="Illustrative moving supplies: hand truck, furniture dolly, cart, wrap, blankets and boxes." width="1536" height="1024" loading="lazy">` : ''}
   <div class="wrap cta-inner reveal">
     <p class="kicker kicker-light">Talk to Kyle</p>
     <h2 id="cta-title">${title}</h2>

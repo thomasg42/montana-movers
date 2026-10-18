@@ -14,7 +14,7 @@ def font(size, condensed=False):
     name = 'BarlowCondensed-ExtraBold.ttf' if condensed else 'Barlow-SemiBold.ttf'
     return ImageFont.truetype(str(ROOT / 'tools/fonts' / name), size)
 def crop(src, size):
-    return ImageOps.fit(Image.open(ASSETS / src).convert('RGB'), size, method=Image.Resampling.LANCZOS)
+    return ImageOps.fit(Image.open((ROOT / 'review/unique-imagery/retired-assets/highway-truck-16x9.jpg') if src == 'photos/highway-truck-16x9.jpg' else ASSETS / src).convert('RGB'), size, method=Image.Resampling.LANCZOS)
 def make_og():
     REVIEW.mkdir(exist_ok=True)
     for variant in (1, 2, 3):
@@ -44,13 +44,6 @@ def make_og():
         im.convert('RGB').save(REVIEW/f'og-variant-{variant}.png',optimize=True)
     shutil.copy2(REVIEW/'og-variant-1.png',ASSETS/'og-image.png')
     Image.open(ASSETS/'og-image.png').save(ASSETS/'og-image.jpg',quality=91,optimize=True)
-def make_editorial():
-    scenes = {'moving-day':'hero/mm-hero-start-16x9.jpg',
-              'montana-arrival':'hero/mm-hero-end-16x9.jpg',
-              'montana-road':'photos/highway-truck-16x9.jpg'}
-    for name,src in scenes.items():
-        crop(src,(1200,800)).save(ASSETS/'photos'/f'{name}.webp',quality=88)
 if __name__ == '__main__':
     make_og()
-    make_editorial()
-    print('Three share-card variants and three editorial crops rebuilt; hero and brand originals preserved.')
+    print('Three share-card variants rebuilt; hero, unique imagery and brand originals preserved.')

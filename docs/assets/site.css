@@ -431,9 +431,6 @@ a.card:hover { color: var(--ink); transform: translateY(-4px); border-color: var
 .section { padding-block: clamp(36px, 4.5vw, 60px); }
 .page-hero { padding-block: clamp(40px, 5vw, 68px); }
 .service-card { overflow: hidden; }
-.service-card-photo { width: calc(100% + 48px); max-width: none; height: 170px; object-fit: cover; margin: -26px -24px 22px; }
-.service-card:nth-child(2) .service-card-photo { object-position: 75% 55%; }
-.cta-band { background: linear-gradient(#101b29d9, #101b29e8), url('photos/highway-truck-16x9.webp') center 55% / cover; padding-block: clamp(46px, 6vw, 78px); }
 .road-photo { height: 390px; }
 .road-photo img { height: 100%; }
 #road-title { margin-top: 0; }
@@ -442,14 +439,22 @@ a.card:hover { color: var(--ink); transform: translateY(-4px); border-color: var
 .estimate-photo img { width: 100%; aspect-ratio: 3/2; object-fit: cover; }
 .estimate-photo figcaption { position: absolute; inset: auto 0 0; padding: 24px 16px 12px; color: white; font-size: .74rem; background: linear-gradient(transparent,#101b29dd); }
 @media (min-width: 861px) { .split { align-items: center; gap: 40px; } }
-@media (max-width: 620px) { .service-card-photo { height: 190px; } .road-photo { height: 300px; } }
 
 .advice-intro { max-width: 58ch; margin: -6px 0 24px; }
 
 /* Keep the homepage hero intact. Fill the other dark surfaces with moving-day items. */
-.page-hero { background: linear-gradient(90deg, rgba(16,23,31,.91), rgba(16,23,31,.48)), url('hero/mm-hero-start-16x9.jpg') center 58% / cover; }
-.cta-band { background: linear-gradient(90deg, rgba(16,23,31,.80), rgba(16,23,31,.60)), url('hero/mm-hero-start-16x9.jpg') center 50% / cover; }
-.footer-body { background: linear-gradient(90deg, rgba(16,23,31,.88), rgba(16,23,31,.60)), url('hero/mm-hero-start-16x9.jpg') center 68% / cover; }
 @media (max-width: 620px) {
- .page-hero, .cta-band, .footer-body { background-position: 64% center; }
 }
+
+/* Content photographs have a single placement. No repeated raster backgrounds. */
+.page-hero { background: linear-gradient(135deg, #1F2D3B, #2F4B64); }
+.cta-band { background: #DCEBF8; color: #1D232B; padding-block: clamp(40px,5vw,66px); }
+.cta-band h2, .cta-band .kicker { color: #1F242B; }
+.cta-band .btn-ghost-light { color: #1F242B; border-color: #2F6FAE; }
+.cta-inner { position: relative; z-index: 1; }
+.cta-supplies { width: min(1180px,calc(100% - 32px)); height: clamp(230px,34vw,430px); object-fit: cover; object-position: center 57%; border-radius: 14px; margin: 0 auto 32px; }
+.footer-body { background: #E8E5DC; color: #1D232B; }
+.site-footer a, .footer-h { color: #1F242B; }
+.site-footer .footer-tagline { color: #245888; }
+.legal { border-color: #AEBAC6; }
+@media (max-width: 620px) { .road-photo { height: 300px; } }
