@@ -100,7 +100,7 @@ const home = {
       </div>
     </div>
     <figure class="road-photo reveal">
-      <img src="${ctx.asset('photos/anywhere-anytime.webp')}" alt="A white box truck on a Montana highway with mountains ahead. Illustrative. Not Kyle's truck." width="1122" height="1402" loading="lazy">
+      <img src="${ctx.asset('photos/highway-truck-4x5.webp')}" alt="A white box truck on a Montana highway with mountains ahead. Illustrative. Not Kyle's truck." width="1200" height="1500" loading="lazy">
       <figcaption>Illustrative. Not Kyle's truck or a customer's job.</figcaption>
     </figure>
   </div>
@@ -239,9 +239,9 @@ ${pageHero(ctx, {
 <section class="section section-white">
   <div class="wrap split">
     <div class="reveal">
-      <p class="kicker">Photos we still need</p>
-      <h2>Real truck. Real crew.</h2>
-      <p class="section-lead">Those shots are not on file yet. The slots stay empty on purpose. We will not fill them with other people's faces.</p>
+      <p class="kicker">A look at moving day</p>
+      <h2>From boxes to open roads.</h2>
+      <p class="section-lead">These scenes illustrate moving day. Photos of Kyle’s actual truck and crew have not been supplied yet.</p>
     </div>
     <div class="stack">
       ${photoSlot(ctx, { kind: 'crew', note: 'Waiting on a photo Kyle took.' })}
@@ -344,6 +344,7 @@ const estimate = {
       </div>
     </div>
     <aside class="reserve-side">
+      <figure class="estimate-photo"><img src="${ctx.asset('photos/montana-road.webp')}" alt="Illustrative truck on a Montana mountain road. Not Kyle’s truck." width="1200" height="800" loading="lazy"><figcaption>Illustrative scene.</figcaption></figure>
       <div class="side-card">
         <h2 class="side-h">Rather talk now?</h2>
         <a class="side-link" href="${ctx.tel}">${ctx.icon('phone')}<span><b>Call Kyle</b>${SITE.phone.display}</span></a>

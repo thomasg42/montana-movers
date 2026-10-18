@@ -56,7 +56,7 @@ function head(ctx, page, schema) {
   const { SITE, esc } = ctx;
   const url = ctx.abs(page.file || (page.slug ? `${page.slug}/` : ''));
   const noindex = page.noindex || !SITE.launched;
-  const ogImage = ctx.abs('assets/og-image.png');
+  const ogImage = ctx.abs('assets/og-image.png') + '?v=' + encodeURIComponent(SITE.assetVersion);
   const ld = schema.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join('\n');
   const start16 = ctx.assetBare('hero/mm-hero-start-16x9.webp');
   const preload = page.slug === ''
@@ -86,7 +86,7 @@ ${preload}<meta property="og:type" content="website">
 <meta property="og:image" content="${ogImage}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="${esc(SITE.hero.endAlt)}">
+<meta property="og:image:alt" content="${esc(`${SITE.name}. ${SITE.city}, ${SITE.region}. ${SITE.tagline} Free estimate: ${SITE.phone.display}. Illustrative white truck and mountain landscape.`)}">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(page.title)}">
@@ -137,6 +137,7 @@ export function crumbs(ctx, name) {
 }
 
 export function pageHero(ctx, { kicker, h1, lead, cta = 'Get a free estimate', ctaParams, photo }) {
+  photo ||= { src: ctx.slug === 'long-distance-moving' ? 'photos/montana-road.webp' : ctx.slug === 'about' ? 'photos/montana-arrival.webp' : 'photos/moving-day.webp', alt: ctx.slug === 'long-distance-moving' ? 'Illustrative moving truck on a mountain road; not Kyle’s truck.' : ctx.slug === 'about' ? 'Illustrative truck beneath Montana mountains; not Kyle’s truck.' : 'Illustrative boxes ready for moving day; not a customer home.', w: 1200, h: 800, caption: 'Illustrative scene.' };
   const pic = photo
     ? `<figure class="page-hero-photo-frame"><img src="${ctx.asset(photo.src)}" alt="${photo.alt}" width="${photo.w}" height="${photo.h}" fetchpriority="high"><figcaption>${photo.caption}</figcaption></figure>`
     : '';

@@ -1,141 +1,56 @@
 #!/usr/bin/env python3
-"""Build logo copy, placeholder hero stills, OG card, icons, and photo slots. No redraw of Kyle's card."""
+"""Rebuild share cards and editorial crops from retained illustrative scenes.
+Never overwrite hero footage, brand originals, or hero stills with placeholders.
+"""
 from pathlib import Path
-from PIL import Image, ImageDraw, ImageFont, ImageFilter
-import shutil
-import subprocess
-
+from PIL import Image, ImageDraw, ImageFont, ImageOps
+import json, subprocess, shutil
 ROOT = Path(__file__).resolve().parent.parent
-ASSETS = ROOT / 'src' / 'assets'
-HERO = ASSETS / 'hero'
-BRAND = ASSETS / 'brand'
-PHOTOS = ASSETS / 'photos'
-CLIENT = ROOT.parent
-CARD = CLIENT / 'marketing/meta-ads/v2-identity-simple/source/assets/montana-movers-logo-card.png'
-TRUCK = CLIENT / 'marketing/meta-ads/v2-identity-simple/source/assets/04-anywhere-anytime.png'
-
-GRAPHITE = (22, 25, 30)
-GRAPHITE_800 = (31, 36, 43)
-SKY = (127, 182, 232)
-SKY_600 = (47, 111, 174)
-WHITE = (251, 250, 247)
-YELLOW = (242, 194, 48)
-
-
-def font(size, bold=True):
-    candidates = [
-        '/System/Library/Fonts/Supplemental/Arial Bold.ttf' if bold else '/System/Library/Fonts/Supplemental/Arial.ttf',
-        '/Library/Fonts/Arial Bold.ttf' if bold else '/Library/Fonts/Arial.ttf',
-        '/System/Library/Fonts/Helvetica.ttc',
-    ]
-    for p in candidates:
-        if Path(p).exists():
-            try:
-                return ImageFont.truetype(p, size)
-            except OSError:
-                continue
-    return ImageFont.load_default()
-
-
-def gradient(size, top, bottom):
-    w, h = size
-    im = Image.new('RGB', size, top)
-    px = im.load()
-    for y in range(h):
-        t = y / max(h - 1, 1)
-        c = tuple(int(top[i] * (1 - t) + bottom[i] * t) for i in range(3))
-        for x in range(w):
-            px[x, y] = c
-    return im
-
-
-def save_still(im, stem):
-    jpg = HERO / f'{stem}.jpg'
-    webp = HERO / f'{stem}.webp'
-    im.save(jpg, 'JPEG', quality=82, optimize=True)
-    subprocess.run(['cwebp', '-q', '78', str(jpg), '-o', str(webp)], check=True, stdout=subprocess.DEVNULL)
-
-
-def make_hero_placeholders():
-    HERO.mkdir(parents=True, exist_ok=True)
-    start = gradient((1920, 1080), (28, 24, 20), (210, 170, 110))
-    # doorway glow, no letters
-    glow = Image.new('L', (1920, 1080), 0)
-    g = ImageDraw.Draw(glow)
-    g.rectangle((760, 220, 1160, 900), fill=220)
-    glow = glow.filter(ImageFilter.GaussianBlur(48))
-    light = Image.new('RGB', (1920, 1080), (255, 220, 160))
-    start = Image.composite(light, start, glow)
-    save_still(start, 'mm-hero-start-16x9')
-    save_still(start.crop((600, 0, 1320, 1080)).resize((1080, 1920), Image.Resampling.LANCZOS), 'mm-hero-start-9x16')
-
-    end = gradient((1920, 1080), (80, 140, 200), (40, 70, 50))
-    d = ImageDraw.Draw(end)
-    d.rectangle((720, 430, 1200, 980), fill=(245, 245, 245))  # truck box, unbranded
-    d.rectangle((700, 980, 1220, 1040), fill=(60, 60, 60))
-    save_still(end, 'mm-hero-end-16x9')
-    save_still(end.crop((600, 0, 1320, 1080)).resize((1080, 1920), Image.Resampling.LANCZOS), 'mm-hero-end-9x16')
-
-
+ASSETS = ROOT / 'src/assets'
+REVIEW = ROOT / 'review'
+CONFIG = json.loads(subprocess.check_output(['node', '--input-type=module', '-e',
+    "import {SITE} from './site.config.mjs'; console.log(JSON.stringify(SITE))"], cwd=ROOT))
+def font(size, condensed=False):
+    name = 'BarlowCondensed-ExtraBold.ttf' if condensed else 'Barlow-SemiBold.ttf'
+    return ImageFont.truetype(str(ROOT / 'tools/fonts' / name), size)
+def crop(src, size):
+    return ImageOps.fit(Image.open(ASSETS / src).convert('RGB'), size, method=Image.Resampling.LANCZOS)
 def make_og():
-    end = Image.open(HERO / 'mm-hero-end-16x9.jpg').convert('RGB')
-    og = end.resize((1200, 675), Image.Resampling.LANCZOS).crop((0, 0, 1200, 630))
-    overlay = Image.new('RGBA', og.size, (22, 25, 30, 110))
-    og = og.convert('RGBA')
-    og.alpha_composite(overlay)
-    draw = ImageDraw.Draw(og)
-    draw.text((60, 200), 'MONTANA MOVERS', font=font(72), fill=WHITE)
-    draw.text((60, 290), 'Bozeman, MT', font=font(36, bold=False), fill=SKY)
-    draw.text((60, 360), 'We move anywhere, anytime.', font=font(28, bold=False), fill=WHITE)
-    out = ASSETS / 'og-image.png'
-    og.convert('RGB').save(out, 'PNG')
-
-
-def make_icons():
-    # State-outline tile. Not Kyle's card.
-    for name, size in (('apple-touch-icon.png', 180), ('favicon.png', 64)):
-        im = Image.new('RGB', (size, size), GRAPHITE_800)
-        draw = ImageDraw.Draw(im)
-        pad = size * 0.14
-        # simple Montana-ish hex
-        pts = [
-            (pad, size * 0.32),
-            (size * 0.82, pad),
-            (size - pad, size * 0.34),
-            (size - pad, size * 0.78),
-            (size * 0.72, size - pad),
-            (size * 0.28, size * 0.78),
-        ]
-        draw.polygon(pts, fill=SKY)
-        im.save(ASSETS / name, 'PNG')
-
-
-def make_slots():
-    PHOTOS.mkdir(parents=True, exist_ok=True)
-    for stem, label in (('photo-slot-crew', 'CREW PHOTO'), ('photo-slot-truck', 'TRUCK PHOTO')):
-        im = Image.new('RGB', (1200, 800), (220, 232, 242))
-        draw = ImageDraw.Draw(im)
-        draw.rectangle((40, 40, 1160, 760), outline=SKY_600, width=6)
-        draw.text((80, 340), label, font=font(56), fill=GRAPHITE)
-        draw.text((80, 420), 'Waiting on Kyle', font=font(28, bold=False), fill=SKY_600)
-        webp = PHOTOS / f'{stem}.webp'
-        im.save(webp, 'WEBP', quality=80)
-
-
-def copy_brand():
-    BRAND.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(CARD, BRAND / 'montana-movers-logo-card.png')
-    src = Image.open(TRUCK).convert('RGB')
-    src.save(PHOTOS / 'anywhere-anytime.webp', 'WEBP', quality=78)
-
-
+    REVIEW.mkdir(exist_ok=True)
+    for variant in (1, 2, 3):
+        src = 'hero/mm-hero-end-16x9.jpg' if variant != 3 else 'photos/highway-truck-16x9.jpg'
+        im = crop(src, (1200,630)).convert('RGBA')
+        # A soft light wash over the sky. No panel or placeholder box.
+        wash = Image.new('RGBA', im.size)
+        d = ImageDraw.Draw(wash)
+        for y in range(630):
+            alpha = int((220 if variant == 2 else 195) * max(0,1-y/390))
+            d.line((0,y,1200,y),fill=(251,250,247,alpha))
+        im.alpha_composite(wash);d=ImageDraw.Draw(im)
+        ink=(22,25,30)
+        headline = CONFIG['name'].upper()
+        sub = f"{CONFIG['city']}, {CONFIG['region']} · {CONFIG['tagline']}"
+        cta = f"Free estimate · {CONFIG['phone']['display']}"
+        def centered(y,text,f,fill):
+            width=d.textlength(text,font=f)
+            assert width <= 1000, (text,width)
+            d.text(((1200-width)/2,y),text,font=f,fill=fill)
+        centered(65,headline,font(106,True),ink)
+        centered(185,sub,font(34),ink)
+        w=d.textlength(cta,font(38))+64
+        d.rounded_rectangle(((1200-w)/2,475,(1200+w)/2,553),radius=39,
+                            fill=(242,194,48) if variant != 2 else (220,235,248))
+        centered(488,cta,font(38),ink)
+        im.convert('RGB').save(REVIEW/f'og-variant-{variant}.png',optimize=True)
+    shutil.copy2(REVIEW/'og-variant-1.png',ASSETS/'og-image.png')
+    Image.open(ASSETS/'og-image.png').save(ASSETS/'og-image.jpg',quality=91,optimize=True)
+def make_editorial():
+    scenes = {'moving-day':'hero/mm-hero-start-16x9.jpg',
+              'montana-arrival':'hero/mm-hero-end-16x9.jpg',
+              'montana-road':'photos/highway-truck-16x9.jpg'}
+    for name,src in scenes.items():
+        crop(src,(1200,800)).save(ASSETS/'photos'/f'{name}.webp',quality=88)
 if __name__ == '__main__':
-    if not CARD.is_file() or not TRUCK.is_file():
-        raise SystemExit('Missing logo card or 04-anywhere-anytime.png')
-    make_hero_placeholders()
     make_og()
-    make_icons()
-    make_slots()
-    copy_brand()
-    for p in [HERO / 'mm-hero-start-16x9.webp', ASSETS / 'og-image.png', BRAND / 'montana-movers-logo-card.png']:
-        print(p.name, p.stat().st_size)
+    make_editorial()
+    print('Three share-card variants and three editorial crops rebuilt; hero and brand originals preserved.')
