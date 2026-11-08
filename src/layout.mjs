@@ -321,6 +321,7 @@ ${footer(ctx)}
 <script src="${ctx.asset('config.js')}"></script>
 <script src="${ctx.asset('mm-core.js')}"></script>
 <script src="${ctx.asset('site.js')}" defer></script>
+<script src="${ctx.asset('fg-collect.js')}" data-business="montana-movers" defer></script>
 </body>
 </html>
 `;
